@@ -4,6 +4,13 @@ import sys
 
 book_file = sys.argv[1]
 
+file = open("common_english_words.txt", 'r')
+common_words = file.read().lower()
+file.close()
+text = re.sub('[^a-z\ \']+', " ", common_words)
+common_words_list = list(common_words.split())
+
+
 file = open(book_file, 'r')
 text = file.read().lower()
 file.close()
@@ -16,11 +23,12 @@ for word in words:
     key = word
     if key in uniqueWords:
         uniqueWords[key] += 1
-    else:
+    elif key not in common_words_list:
         uniqueWords[key] = 1
 
 sorted_unique_words = sorted(uniqueWords.items(), key=operator.itemgetter(1), reverse=True)
+sorted_unique_words_dict = dict(sorted(uniqueWords.items(), key=operator.itemgetter(1), reverse=True))
 
-for x in range(81, 120):
+for x in range(1, 50):
     print (sorted_unique_words[x]);
-print(len(uniqueWords));
+# print(len(uniqueWords));
