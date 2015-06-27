@@ -1,7 +1,10 @@
 import re
 import operator
+import sys
 
-file = open('/Users/carenchang/Desktop/GITenburg/76.txt', 'r')
+book_file = sys.argv[1]
+
+file = open(book_file, 'r')
 text = file.read().lower()
 file.close()
 text = re.sub('[^a-z\ \']+', " ", text)
@@ -18,6 +21,6 @@ for word in words:
 
 sorted_unique_words = sorted(uniqueWords.items(), key=operator.itemgetter(1), reverse=True)
 
-for x in range(41, 80):
+for x in range(81, 120):
     print (sorted_unique_words[x]);
 print(len(uniqueWords));
