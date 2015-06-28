@@ -5,8 +5,13 @@ from urllib import urlopen
 import yaml
 import csv
 
-with open('/Users/carenchang/Desktop/repos_list.tsv') as csvfile:
-    reader = csv.DictReader(csvfile)
+with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
+    reader = tsv.DictReader(csvfile, dialect="excel-tab")
+    for row in reader:
+        book_file = "https://raw.githubusercontent.com/GITenberg/" + row['gitb_name'] + "/master/" + row['text_files'][0]
+        print book_file
+
+
 
 # book_file should be the raw text file from github, such as
 # https://raw.githubusercontent.com/GITenberg/Les-Mis-rables_135/master/135.txt
