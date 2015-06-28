@@ -21,11 +21,12 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
         # get the file
         file = urlopen(book_file, 'r')
         # save the file in a list with all lower cased letters
-        text = file.read()
+        text = file.read().lower()
         file.close()
         # take out all the text before the actual start of the book, such as gutenberg intro
-        text = text.split(row['title'])[1]
-        text = text.lower()
+        # todo strip out beginning paragraph
+        #text = text.split(row['title'])
+        #text = text[2].lower()
         # take out anything that's not a letter
         text = re.sub('[^a-z\ \']+', " ", text)
         text = re.sub(' [^a-z]+', "", text)
