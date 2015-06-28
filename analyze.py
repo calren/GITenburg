@@ -2,6 +2,11 @@ import re
 import operator
 import sys
 from urllib import urlopen
+import yaml
+import csv
+
+with open('/Users/carenchang/Desktop/repos_list.tsv') as csvfile:
+    reader = csv.DictReader(csvfile)
 
 # book_file should be the raw text file from github, such as
 # https://raw.githubusercontent.com/GITenberg/Les-Mis-rables_135/master/135.txt
@@ -38,9 +43,17 @@ sorted_unique_words = sorted(uniqueWords.items(), key=operator.itemgetter(1), re
 # sorted_unique_words_dict = dict(sorted(uniqueWords.items(), key=operator.itemgetter(1), reverse=True))
 
 # print the most seen 50 words
-for k,v in sorted_unique_words[:49]:
-    print k, v
+#for k,v in sorted_unique_words[:49]:
+#    print k, v
 #print str(k) + " appears " + str(v) + " times"
 
+# get file to save name
+book_yml_file = book_file.split("/")[4] + ".yml"
+
+with open(book_yml_file, 'w') as outfile:
+    outfile.write( yaml.dump(sorted_unique_words[:49], default_flow_style=False) )
+
 # print the number of total unique words
-print( "total number of unique words: " + str(len(uniqueWords)));
+
+
+# print( "total number of unique words: " + str(len(uniqueWords)));
