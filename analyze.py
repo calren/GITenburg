@@ -17,6 +17,7 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
     reader = csv.DictReader(tsvfile, dialect="excel-tab")
     for row in reader:
         book_name = row['gitb_name']
+        # create the url for getting the book file, which is the raw txt file of the book
         book_file = "https://raw.githubusercontent.com/GITenberg/" + book_name + "/master/" + row['text_files'].strip('[]').split(", ")[0]
         # get the file
         file = urlopen(book_file, 'r')
@@ -24,7 +25,7 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
         text = file.read().lower()
         file.close()
         # take out all the text before the actual start of the book, such as gutenberg intro
-        # todo strip out beginning paragraph
+        # todo strip out beginning paragraph somehow with these two lines below. currently getting out of bounds exeception for some books
         #text = text.split(row['title'])
         #text = text[2].lower()
         # take out anything that's not a letter
