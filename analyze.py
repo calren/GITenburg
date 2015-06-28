@@ -50,6 +50,8 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
         # get file to save name
         book_yml_file = book_name + ".csv"
         
+        # create the csv file that'll show the most frequent 200 words, and the number of times they're used
+        # the last line will be the number of unique words in the whole book
         with open(book_yml_file, 'wb') as f:    #w for python 2.7
             fieldnames = ['word', 'appearances']
             w = csv.DictWriter(f, fieldnames=fieldnames)
@@ -57,6 +59,3 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
             for k, v in sorted_unique_words_dict.items():
                 w.writerow({'word' : k, 'appearances': v})
             w.writerow({'word' : "total unique words", 'appearances': str(len(sorted_unique_words))})
-
-# print( "total number of unique words: " + str(len(uniqueWords)));
-
