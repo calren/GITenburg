@@ -1,6 +1,7 @@
 import re
 import operator
 import sys
+from urllib import urlopen
 
 book_file = sys.argv[1]
 
@@ -11,7 +12,7 @@ text = re.sub('[^a-z\ \']+', " ", common_words)
 common_words_list = list(common_words.split())
 
 
-file = open(book_file, 'r')
+file = urlopen(book_file, 'r')
 text = file.read().lower()
 file.close()
 text = re.sub('[^a-z\ \']+', " ", text)
