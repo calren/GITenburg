@@ -11,7 +11,6 @@ file = open("common_english_words.txt", 'r')
 common_words = file.read().lower()
 file.close()
 common_words_list = list(common_words.split())
-print common_words_list.decode('string_escape')
 
 # get all books and get url for text
 with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
@@ -22,8 +21,11 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
         # get the file
         file = urlopen(book_file, 'r')
         # save the file in a list with all lower cased letters
-        text = file.read().lower()
+        text = file.read()
         file.close()
+        # take out all the text before the actual start of the book, such as gutenberg intro
+        text = text.split(row['title'])[1]
+        text = text.lower()
         # take out anything that's not a letter
         text = re.sub('[^a-z\ \']+', " ", text)
         text = re.sub(' [^a-z]+', "", text)
@@ -52,5 +54,7 @@ with open('/Users/carenchang/Desktop/repos_list.tsv') as tsvfile:
             w.writeheader()
             for k, v in sorted_unique_words_dict.items():
                 w.writerow({'word' : k, 'appearances': v})
+            w.writerow({'word' : "total unique words", 'appearances': str(len(sorted_unique_words))})
+
 # print( "total number of unique words: " + str(len(uniqueWords)));
 
